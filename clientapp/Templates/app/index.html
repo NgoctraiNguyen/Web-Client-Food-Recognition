@@ -1,0 +1,145 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../../static/css/homepage.css" />
+    <title>Food Recognition</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row main-container">
+        <div class="col-5 container-image">
+          <h2>Nhận diện món ăn !</h2>
+
+          <div class="upload-image">
+            <form
+              method="post"
+              class="form-upload"
+              action="/app/upload"
+              enctype="multipart/form-data"
+            >
+              {% csrf_token %}
+              <input
+                class="upfile-button"
+                type="file"
+                name="image"
+                accept="image/*"
+              />
+              <button type="submit">Nhận diện</button>
+            </form>
+          </div>
+
+          <div class="image">
+            <h4>Món ăn của bạn</h4>
+            {% if link_image %}
+            <img src="{{ link_image }}" alt="img" />
+            {% else %}
+            <img src="" alt="" />
+            {% endif %}
+            <!-- <img src="../../static/uploads/food_long.jpg" alt="" /> -->
+            <div class="forecast boldx">
+              Dự đoán: {{ label_predict }} | Tỉ lệ: {{percent_max}} %
+            </div>
+          </div>
+        </div>
+
+        <div class="col-7 image-percent">
+          <div class="image">
+            <canvas id="myChart" width="400" height="200"></canvas>
+            {% for per in percent %}
+            <li class="per">{{per}}</li>
+            {% endfor %}
+
+            <script>
+              var per = document.querySelectorAll(".per");
+
+              var perValues = [];
+              per.forEach(function (element) {
+                // Lấy giá trị của từng phần tử và thêm vào mảng
+                perValues.push(element.textContent);
+              });
+
+              var ctx = document.getElementById("myChart").getContext("2d");
+
+              var myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                  labels: [
+                    "Bánh chưng",
+                    "Bánh mì",
+                    "Bánh tét",
+                    "Bánh tráng",
+                    "Bánh xèo",
+                    "Bún",
+                    "Cơm tấm",
+                    "Gỏi cuốn",
+                    "Phở",
+                    "Bún đậu mắm tôm",
+                    "Nem chua",
+                    "Cháo lòng",
+                  ],
+                  datasets: [
+                    {
+                      label: "%",
+                      data: perValues,
+                      backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                      ],
+                      borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                },
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
+                  },
+                },
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+      <div class="row container-desc">
+        <div class="col-12 decription">
+          <div class="container-detect">
+            {% if label_predict %}
+            <h4>{{label_predict}}</h4>
+            <div class="label_predict"><br />{{text}}</div>
+            {% else %}
+            <h4>Mô tả món ăn</h4>
+            <div class="label_predict">
+              <br />Chưa có món ăn cần được mô tả !
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

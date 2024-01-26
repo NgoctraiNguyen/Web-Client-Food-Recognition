@@ -1,0 +1,67 @@
+body{
+    background-image:url('../images/backgroundfood.jpg') ;
+}
+.container{
+    margin-top: 30px;
+    
+}
+.container{
+    background-color: white;
+    width: 1300px;
+    border-radius: 50px;
+    padding: 30px;
+    
+}
+.container-desc{
+    margin-top: -130px;
+}
+.image-percent{
+    margin-top: 170px;
+}
+.per{
+    display: none;
+}
+.image{
+    margin-top: 20px;
+    background-color: aliceblue;
+    padding: 20px;
+    height: 370px;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.133);
+}
+.image img{
+    height: 75%;
+    padding: 20px;
+    margin-left: 10px;
+}
+.container-detect{
+    margin-top: 190px;
+    background-color: aliceblue;
+    padding: 20px;
+    height: 370px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.133);
+    
+}
+
+.form-upload button{
+    margin-top: 20px;
+    font-weight: 700;
+    border-radius: 20px;
+    height: 50px;
+    width: 145px;
+    background-color: #fff;
+    border: none;
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.133);
+}
+.upfile-button{
+    height: 54px;
+    padding: 12px;
+    width: 489px ;
+    border-radius: 20px;
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.133);
+}
+.boldx{
+    font-weight: bold;
+}
